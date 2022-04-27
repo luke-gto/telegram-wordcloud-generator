@@ -8,7 +8,7 @@ You can use this tool to create a [word cloud](https://bfy.tw/SigJ)  of your Tel
 
 3. Save the file in a directory and don't forget its name
 
-4. You need a [stopwords](https://en.wikipedia.org/wiki/Stop_word) list for your language in order to clean the chat from useless words. You can find [here](https://github.com/stopwords-iso/) a collection of stopwords for multiple languages. Download the one you need.
+4. You need a [stopwords](https://en.wikipedia.org/wiki/Stop_word) list for your language in order to clean the chat from useless words. You can find [here](https://github.com/stopwords-iso/) a collection of stopwords lists for multiple languages. Download the one you need.
 
 5. Install the required libraries
 		 ```pip install -r requirements.txt```
