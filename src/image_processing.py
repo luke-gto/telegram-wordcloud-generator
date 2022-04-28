@@ -1,8 +1,7 @@
-import numpy as np
-from os import path
-from PIL import Image
 import io
 from matplotlib import pyplot as plt
+import numpy as np
+from PIL import Image
 
 
 def make_mask(image):

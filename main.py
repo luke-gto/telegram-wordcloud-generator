@@ -1,7 +1,9 @@
-from src.wordcloud import load_json, tokenize_chat, map_wordcloud, standard_wordcloud
+import easygui
 import os
 import sys
-import easygui
+
+from src.wordcloud import load_json, tokenize_chat, map_wordcloud, standard_wordcloud
+
 
 script_directory = os.path.dirname(os.path.realpath(__file__))
 
@@ -22,7 +24,7 @@ def main():
         sys.exit()
     
     if choice == "3":
-        print("Loading...")
+        print("Loading...\n")
         easygui.msgbox('Select the folder where you want to save the chat messages ready for some text mining with third party tools', 'Telegram chat wordcloud generator')
         save_directory = easygui.diropenbox(msg="Select the folder", default=script_directory)
 

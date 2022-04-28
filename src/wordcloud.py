@@ -1,13 +1,15 @@
+import easygui
 import json
 import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize
 import os.path
-import sys
-from wordcloud import WordCloud
-from .image_processing import make_mask, black_and_white
 from pathlib import Path
 from PIL import Image
-import easygui
+import sys
+from wordcloud import WordCloud
+
+from .image_processing import make_mask, black_and_white
+
 
 script_directory = os.path.dirname(os.path.realpath(__file__))
 file_save_directory = str(Path(__file__).resolve().parents[1])
