@@ -78,7 +78,7 @@ def save_img(wc): # function to save img
     plt.tight_layout(pad=0)
     wordcloud_file_name = input("\n\nEnter the filename of the generated wordcloud:\n\n")
     plt.savefig(file_save_directory + '/{}.png'.format(wordcloud_file_name), bbox_inches='tight')
-    print("WordCloud saved in {}".format(file_save_directory))
+    print("\n\nWordCloud saved in {}".format(file_save_directory))
 
 
 def standard_wordcloud(tokenized_chat):
@@ -115,8 +115,8 @@ def map_wordcloud(tokenized_chat):
         mask_img = Image.open(mask_img_path)
         mask_img_width = mask_img.size[0]
         mask_img_length = mask_img.size[1]
-        mask_ready = black_and_white(mask_img_path)
+        mask_ready = black_and_white(mask_img_path)  #the function already outputs a np array that can be used as a mask, no more operations are needed
 
-        wc = WordCloud(background_color=color, width=mask_img_width, height=mask_img_length, mask=make_mask(mask_ready), contour_color=contour_input).generate_from_text(tokenized_chat)
+        wc = WordCloud(background_color=color, width=mask_img_width, height=mask_img_length, mask=mask_ready, contour_color=contour_input).generate_from_text(tokenized_chat)
 
         save_img(wc)
