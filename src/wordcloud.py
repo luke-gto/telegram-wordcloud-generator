@@ -94,7 +94,9 @@ def map_wordcloud(tokenized_chat):
 
     color = input("\n\nType the background color name. E.g.: black, white, green, grey...\n\n")
 
-    contour_input = input("\nType the colour name of the contour:\n\n")
+    contour_color_input = input("\nType the colour name of the contour:\n\n")
+
+    contour_size_input = input("\nEnter the thickness of the contour. E.g.: 1, 2, 10...\n\n")
 
     mask_choice = input("Please read the documentation to know what charateristics the mask should have.\nDo you have a mask ready to be used? Y/N\n").lower()
 
@@ -104,7 +106,7 @@ def map_wordcloud(tokenized_chat):
         mask_ready = easygui.fileopenbox(msg="Select the mask image", default=script_directory, filetypes="*.png")
 
         mask_img = Image.open(mask_ready)
-        wc = WordCloud(background_color=color, width=mask_img.size[0], height=mask_img.size[1], mask=make_mask(mask_ready), contour_color=contour_input).generate_from_text(tokenized_chat)
+        wc = WordCloud(background_color=color, width=mask_img.size[0], height=mask_img.size[1], mask=make_mask(mask_ready), contour_width=contour_size_input, contour_color_input=contour_color_input).generate_from_text(tokenized_chat)
 
         save_img(wc)
 
@@ -117,6 +119,6 @@ def map_wordcloud(tokenized_chat):
         mask_img_length = mask_img.size[1]
         mask_ready = black_and_white(mask_img_path)  #the function already outputs a np array that can be used as a mask, no more operations are needed
 
-        wc = WordCloud(background_color=color, width=mask_img_width, height=mask_img_length, mask=mask_ready, contour_color=contour_input).generate_from_text(tokenized_chat)
+        wc = WordCloud(background_color=color, width=mask_img_width, height=mask_img_length, mask=mask_ready, contour_width=contour_size_input, contour_color_input=contour_color_input).generate_from_text(tokenized_chat)
 
         save_img(wc)
