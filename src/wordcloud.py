@@ -38,7 +38,7 @@ def load_json():
 def tokenize_chat(jdata):
 
     messages = []
-
+    print("Loading...")
     for item in jdata['messages']:
 
         if type(item['text']) == list:
@@ -56,11 +56,13 @@ def tokenize_chat(jdata):
     file_exists = os.path.exists(stopword_file)
 
     if file_exists:
-
+        print("Loading...")
         with open(stopword_file, "r") as stopword:
             stopword_list = stopword.read()
 
-            tokenized_chat = ([i for i in word_tokenize(text.lower()) if i not in stopword_list])
+            for i in tqdm(range(len(messages))):
+
+                tokenized_chat = ([i for i in word_tokenize(text.lower()) if i not in stopword_list])
 
             return tokenized_chat
 
