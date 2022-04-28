@@ -2,13 +2,17 @@ import numpy as np
 from os import path
 from PIL import Image
 import io
+from matplotlib import pyplot as plt
+
 
 def make_mask(image):
-    print(type(image))
+
     if type(image) == bytes:
 
         wine_mask = np.array(Image.open(io.BytesIO(image)))
-        wine_mask[wine_mask == 0] = 255
+        plt.imshow(wine_mask, interpolation='bilinear')
+        plt.show()
+
 
     else:
         wine_mask = np.array(Image.open(image))

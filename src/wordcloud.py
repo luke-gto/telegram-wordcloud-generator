@@ -4,10 +4,11 @@ from nltk.tokenize import word_tokenize
 import os.path
 import sys
 from wordcloud import WordCloud
-from .image_processing import make_mask
+from .image_processing import make_mask, black_and_white
 from pathlib import Path
 from PIL import Image
 import easygui
+
 script_directory = os.path.dirname(os.path.realpath(__file__))
 file_save_directory = str(Path(__file__).resolve().parents[1])
 
@@ -27,7 +28,7 @@ def load_json():
                 return jdata
 
     else:
-        print('JSON file not found, try again.')
+        print('\n\nJSON file not found, try again.')
 
         sys.exit()
 
@@ -63,7 +64,7 @@ def tokenize_chat(jdata):
 
     else:
 
-        print('Stopwords file not found, try again.')
+        print('\n\nStopwords file not found, try again.')
         sys.exit()
 
 
@@ -73,21 +74,23 @@ def save_img(wc): # function to save img
     plt.imshow(wc, interpolation="bilinear")
     plt.axis("off")
     plt.tight_layout(pad=0)
-    wordcloud_file_name = input("Enter the filename of the generated wordcloud: ")
+    wordcloud_file_name = input("\n\nEnter the filename of the generated wordcloud: ")
     plt.savefig(file_save_directory + '/{}.png'.format(wordcloud_file_name), bbox_inches='tight')
     print("WordCloud saved in {}".format(file_save_directory))
 
+
 def standard_wordcloud(tokenized_chat):
 
-    color = input("Type the background color name. E.g.: black, white, green, grey...\n")
+    color = input("\n\nType the background color name. E.g.: black, white, green, grey...\n")
 
     wc = WordCloud(background_color=color, width=1600, height=800).generate_from_text(tokenized_chat)
 
     save_img(wc)
 
+
 def map_wordcloud(tokenized_chat):
 
-    color = input("Type the background color name. E.g.: black, white, green, grey...\n")
+    color = input("\n\nType the background color name. E.g.: black, white, green, grey...\n")
 
     contour_input = input("Type the colour name of the contour:\n")
 
@@ -105,10 +108,13 @@ def map_wordcloud(tokenized_chat):
 
     if mask_choice == "n":
 
-        easygui.msgbox('I can try convert a PNG image to a mask for you. The result quality may vary. Choose the image you want to use:', 'Telegram chat wordcloud generator')
-        mask_image = easygui.fileopenbox(msg="Select the mask image", default=script_directory, filetypes="*.png")
-        mask_ready = make_mask(mask_image)
+        easygui.msgbox('I can try to convert a PNG image to a mask for you. The result quality may vary. Choose the image you want to use', 'Telegram chat wordcloud generator')
+        mask_img_path = easygui.fileopenbox(msg="Select the mask image", default=script_directory, filetypes="*.png")
+        mask_img = Image.open(mask_img_path)
+        mask_img_width = mask_img.size[0]
+        mask_img_length = mask_img.size[1]
+        mask_ready = black_and_white(mask_img_path)
 
-        wc = WordCloud(background_color=color, width=1600, height=800, mask=make_mask(mask_ready), contour_color=contour_input).generate_from_text(tokenized_chat)
+        wc = WordCloud(background_color=color, width=mask_img_width, height=mask_img_length, mask=make_mask(mask_ready), contour_color=contour_input).generate_from_text(tokenized_chat)
 
         save_img(wc)
