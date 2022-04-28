@@ -7,7 +7,7 @@ script_directory = os.path.dirname(os.path.realpath(__file__))
 
 def main():
 
-    choice = input("\nWhat type of wordcloud do you want to generate?\n1. Standard\n2. wordcloud with image map\n3. I want only the chat messages without stopwords ready for some text mining, you incompetent!\n")
+    choice = input("\nWhat type of wordcloud do you want to generate?\n1. Standard\n2. wordcloud with image map\n3. I want only the chat messages without stopwords ready for some text mining, you incompetent!\n\n")
 
     chat = tokenize_chat(load_json()) # input chat json file
 

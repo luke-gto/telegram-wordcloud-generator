@@ -74,14 +74,14 @@ def save_img(wc): # function to save img
     plt.imshow(wc, interpolation="bilinear")
     plt.axis("off")
     plt.tight_layout(pad=0)
-    wordcloud_file_name = input("\n\nEnter the filename of the generated wordcloud: ")
+    wordcloud_file_name = input("\n\nEnter the filename of the generated wordcloud:\n\n")
     plt.savefig(file_save_directory + '/{}.png'.format(wordcloud_file_name), bbox_inches='tight')
     print("WordCloud saved in {}".format(file_save_directory))
 
 
 def standard_wordcloud(tokenized_chat):
 
-    color = input("\n\nType the background color name. E.g.: black, white, green, grey...\n")
+    color = input("\n\nType the background color name. E.g.: black, white, green, grey...\n\n")
 
     wc = WordCloud(background_color=color, width=1600, height=800).generate_from_text(tokenized_chat)
 
@@ -90,9 +90,9 @@ def standard_wordcloud(tokenized_chat):
 
 def map_wordcloud(tokenized_chat):
 
-    color = input("\n\nType the background color name. E.g.: black, white, green, grey...\n")
+    color = input("\n\nType the background color name. E.g.: black, white, green, grey...\n\n")
 
-    contour_input = input("Type the colour name of the contour:\n")
+    contour_input = input("\nType the colour name of the contour:\n\n")
 
     mask_choice = input("Please read the documentation to know what charateristics the mask should have.\nDo you have a mask ready to be used? Y/N\n").lower()
 

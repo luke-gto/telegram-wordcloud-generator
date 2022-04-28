@@ -19,6 +19,7 @@ def make_mask(image):
 
     return wine_mask
 
+
 def black_and_white(img_path):
 
     img = Image.open(img_path)
