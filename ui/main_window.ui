@@ -68,7 +68,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Select a Telegram chat JSON file backup</string>
+     <string>Select the stopwords list file</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_stopwords">
