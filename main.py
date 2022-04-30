@@ -24,12 +24,15 @@ class Window(QMainWindow, Ui_MainWindow):
         self.pushButton_font.clicked.connect(self.browse_file_font)
 
     def browse_file_font(self):
+        global font_path
         font_path = QtWidgets.QFileDialog.getOpenFileName(
             self, "Open File", "", "*.ttf, *otf"
         )
 
     def browse_file_stopwords(self):
+
         global stopwords_path
+
         stopwords_path = QtWidgets.QFileDialog.getOpenFileName(
             self, "Open File", "", "*.txt"
         )
@@ -45,16 +48,52 @@ class Window(QMainWindow, Ui_MainWindow):
         self.label_json.setText("Selected file: " + json_path[0])
 
     def output_jdata(self, json_path):
+
         jdata = wc.load_json(json_path)
 
         return jdata
 
     def read_wordcloud_options(self):
+
         height = self.spinBox_height.value()
         width = self.spinBox_width.value()
         repeat_words = self.checkBox_repeat.isChecked()
         numbers = self.checkBox_num.isChecked()
+        font = font_path[0]
+        min_font_size = self.spinBox_min_font.value()
+        font_step = self.spinBox_font_step.value()
+        max_font = self.spinBox_max_font.value()
+        max_words = self.spinBox_max_words.value()
+        min_word_lenght = self.spinBox_min_word_length.value()
+        scale = self.doubleSpinBox_scale.value()
+        background_color = self.lineEdit_back_color.text()
+        color_mode = self.lineEdit_color_mode.text()
+        prefer_horizontal = self.doubleSpinBox_horizontal.value()
+        collocation_threshold = self.spinBox_collocation.value()
+        relative_scaling = self.doubleSpinBox_relative_scale.value()
+        mask_contour_color = self.lineEdit_cont_color.text()
+        contour_width = self.spinBox_contour.value()
 
+        return (
+            height,
+            width,
+            repeat_words,
+            numbers,
+            font,
+            min_font_size,
+            font_step,
+            max_font,
+            max_words,
+            min_word_lenght,
+            scale,
+            background_color,
+            color_mode,
+            prefer_horizontal,
+            collocation_threshold,
+            relative_scaling,
+            mask_contour_color,
+            contour_width,
+        )
 
     def chosen_option(self):
         tokenized_chat = wc.tokenize_chat(
@@ -70,6 +109,9 @@ class Window(QMainWindow, Ui_MainWindow):
         save_path = QtWidgets.QFileDialog.getExistingDirectory(
             self, "Open Save Directory", ""
         )
+
+        options = self.read_wordcloud_options()
+
 
         if self.buttonGroup.checkedId() == -2:  ### text only no wordcloud
 
@@ -87,7 +129,10 @@ class Window(QMainWindow, Ui_MainWindow):
                 return
 
         if self.buttonGroup.checkedId() == -4:
-            pass
+
+            wc.standard_wordcloud(
+                chat_as_text,
+            )
 
 
 if __name__ == "__main__":
