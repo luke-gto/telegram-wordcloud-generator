@@ -10,6 +10,24 @@
     <height>772</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>859</width>
+    <height>772</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>859</width>
+    <height>772</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Telegram chat word cloud generator</string>
   </property>
@@ -126,7 +144,7 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>40</x>
       <y>240</y>
       <width>151</width>
       <height>16</height>
@@ -147,7 +165,7 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>40</x>
       <y>270</y>
       <width>51</width>
       <height>16</height>
@@ -163,7 +181,7 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>130</x>
       <y>270</y>
       <width>51</width>
       <height>16</height>
@@ -181,19 +199,21 @@
      <rect>
       <x>20</x>
       <y>290</y>
-      <width>52</width>
+      <width>91</width>
       <height>30</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QSpinBox" name="spinBox_width">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>290</y>
-      <width>52</width>
-      <height>30</height>
-     </rect>
+    <property name="suffix">
+     <string>px</string>
+    </property>
+    <property name="maximum">
+     <number>10000</number>
+    </property>
+    <property name="singleStep">
+     <number>100</number>
+    </property>
+    <property name="value">
+     <number>200</number>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -231,6 +251,9 @@
     </property>
     <property name="statusTip">
      <string>The ratio of times to try horizontal fitting as opposed to vertical.</string>
+    </property>
+    <property name="singleStep">
+     <double>0.250000000000000</double>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_contour">
@@ -321,6 +344,9 @@
     </property>
     <property name="statusTip">
      <string>Scaling between computation and drawing.</string>
+    </property>
+    <property name="singleStep">
+     <double>0.250000000000000</double>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -449,6 +475,9 @@
     <property name="statusTip">
      <string>The maximum number of words</string>
     </property>
+    <property name="singleStep">
+     <number>10</number>
+    </property>
    </widget>
    <widget class="QLabel" name="label_13">
     <property name="geometry">
@@ -557,6 +586,9 @@
     </property>
     <property name="statusTip">
      <string>Scaling between computation and drawing.</string>
+    </property>
+    <property name="singleStep">
+     <double>0.250000000000000</double>
     </property>
     <property name="value">
      <double>0.500000000000000</double>
@@ -779,7 +811,7 @@
    <widget class="QPushButton" name="pushButton_start">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>320</x>
       <y>650</y>
       <width>201</width>
       <height>61</height>
@@ -796,7 +828,7 @@
      <string>START</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>580</x>
@@ -850,6 +882,28 @@
      </item>
     </layout>
    </widget>
+   <widget class="QSpinBox" name="spinBox_width">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>290</y>
+      <width>91</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="suffix">
+     <string>px</string>
+    </property>
+    <property name="maximum">
+     <number>10000</number>
+    </property>
+    <property name="singleStep">
+     <number>100</number>
+    </property>
+    <property name="value">
+     <number>400</number>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -876,7 +930,328 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_textonly</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_cont_color</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>609</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>608</x>
+     <y>614</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_textonly</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_contour</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>785</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>740</x>
+     <y>620</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_height</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>591</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>29</x>
+     <y>328</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_width</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>616</x>
+     <y>76</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>165</x>
+     <y>326</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_repeat</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>670</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>280</x>
+     <y>306</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_num</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>714</x>
+     <y>64</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>459</x>
+     <y>303</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pushButton_font</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>744</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>646</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_min_font</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>694</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>177</x>
+     <y>408</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_font_step</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>700</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>293</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_max_font</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>687</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>397</x>
+     <y>402</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_max_words</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>691</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>526</x>
+     <y>400</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_min_word_length</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>695</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>681</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>doubleSpinBox_scale</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>699</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>497</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_back_color</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>713</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>489</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_color_mode</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>703</x>
+     <y>64</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>447</x>
+     <y>498</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>doubleSpinBox_horizontal</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>720</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>636</x>
+     <y>497</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_collocation</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>695</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>101</x>
+     <y>634</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>doubleSpinBox_relative_scale</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>700</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>621</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_cont_color</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>773</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>556</x>
+     <y>614</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_map</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_contour</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>797</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>759</x>
+     <y>615</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
  </buttongroups>
