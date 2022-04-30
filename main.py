@@ -1,4 +1,5 @@
 from lib2to3.pgen2.tokenize import tokenize
+from turtle import width
 from ui.main_window import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox
@@ -50,21 +51,30 @@ class Window(QMainWindow, Ui_MainWindow):
 
         return jdata
 
-    def chosen_option(self):
-        if self.buttonGroup.checkedId() == -2:
-            tokenized_chat = wc.tokenize_chat(
-                self.output_jdata(json_path[0]), stopwords_path[0]
-            )
-            chat_as_text = " ".join(tokenized_chat)
-            msg = QMessageBox()
-            msg.setWindowTitle("Yeees!")
-            msg.setText("Choose where you want to save the chat file")
-            msg.setIcon(msg.Information)
-            msg.exec()
 
-            save_path = QtWidgets.QFileDialog.getExistingDirectory(
-                self, "Open Save Directory", ""
-            )
+    def read_wordcloud_options(self):
+        height = self.spinBox_height.value()
+        width = self.spinBox_width.value()
+        repeat_words = self.checkBox_repeat.isChecked()
+        numbers = self.checkBox_num.isChecked()
+
+
+    def chosen_option(self):
+        tokenized_chat = wc.tokenize_chat(
+            self.output_jdata(json_path[0]), stopwords_path[0]
+        )
+        chat_as_text = " ".join(tokenized_chat)
+        msg = QMessageBox()
+        msg.setWindowTitle("Yeees!")
+        msg.setText("Choose where you want to save the file")
+        msg.setIcon(msg.Information)
+        msg.exec()
+
+        save_path = QtWidgets.QFileDialog.getExistingDirectory(
+            self, "Open Save Directory", ""
+        )
+
+        if self.buttonGroup.checkedId() == -2:  ### text only no wordcloud
 
             with open(save_path + "/telegram_chat.txt", "w") as f:
                 f.write(chat_as_text)
@@ -78,6 +88,9 @@ class Window(QMainWindow, Ui_MainWindow):
                 msg.setIcon(msg.Information)
                 msg.exec()
                 return
+
+        if self.buttonGroup.checkedId() == -4:
+            pass
 
 
 if __name__ == "__main__":
