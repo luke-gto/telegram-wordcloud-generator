@@ -1,5 +1,3 @@
-from lib2to3.pgen2.tokenize import tokenize
-from turtle import width
 from ui.main_window import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox
@@ -17,18 +15,18 @@ class Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.choose_json()
-        self.choose_stopwords()
-        self.start_creation()
+        self.buttons_listener()
 
-    def start_creation(self):
+    def buttons_listener(self):
         self.pushButton_start.clicked.connect(self.chosen_option)
-
-    def choose_json(self):
         self.pushButton_json.clicked.connect(self.browse_file_json)
-
-    def choose_stopwords(self):
         self.pushButton_stopwords.clicked.connect(self.browse_file_stopwords)
+        self.pushButton_font.clicked.connect(self.browse_file_font)
+
+    def browse_file_font(self):
+        font_path = QtWidgets.QFileDialog.getOpenFileName(
+            self, "Open File", "", "*.ttf, *otf"
+        )
 
     def browse_file_stopwords(self):
         global stopwords_path
@@ -50,7 +48,6 @@ class Window(QMainWindow, Ui_MainWindow):
         jdata = wc.load_json(json_path)
 
         return jdata
-
 
     def read_wordcloud_options(self):
         height = self.spinBox_height.value()
