@@ -25,6 +25,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def browse_file_font(self):
         global font_path
+
         font_path = QtWidgets.QFileDialog.getOpenFileName(
             self, "Open File", "", "*.ttf, *otf"
         )
@@ -59,7 +60,10 @@ class Window(QMainWindow, Ui_MainWindow):
         width = self.spinBox_width.value()
         repeat_words = self.checkBox_repeat.isChecked()
         numbers = self.checkBox_num.isChecked()
-        font = font_path[0]
+        if font_path[0] == None:
+            font = None
+        else:
+            font = font_path[0]
         min_font_size = self.spinBox_min_font.value()
         font_step = self.spinBox_font_step.value()
         max_font = self.spinBox_max_font.value()
@@ -96,25 +100,15 @@ class Window(QMainWindow, Ui_MainWindow):
         )
 
     def chosen_option(self):
-        tokenized_chat = wc.tokenize_chat(
+
+        tokenized_chat_output = wc.tokenize_chat(
             self.output_jdata(json_path[0]), stopwords_path[0]
         )
-        chat_as_text = " ".join(tokenized_chat)
-        msg = QMessageBox()
-        msg.setWindowTitle("Yeees!")
-        msg.setText("Choose where you want to save the file")
-        msg.setIcon(msg.Information)
-        msg.exec()
 
-        save_path = QtWidgets.QFileDialog.getExistingDirectory(
-            self, "Open Save Directory", ""
-        )
-
-        options = self.read_wordcloud_options()
-
+        chat_as_text = " ".join(tokenized_chat_output[0])
+        save_path = tokenized_chat_output[1]
 
         if self.buttonGroup.checkedId() == -2:  ### text only no wordcloud
-
             with open(save_path + "/telegram_chat.txt", "w") as f:
                 f.write(chat_as_text)
                 msg = QMessageBox()
@@ -129,9 +123,26 @@ class Window(QMainWindow, Ui_MainWindow):
                 return
 
         if self.buttonGroup.checkedId() == -4:
-
-            wc.standard_wordcloud(
-                chat_as_text,
+            options = self.read_wordcloud_options()
+            print(options)
+            wc.standard_wordcloud(save_path=save_path,
+                tokenized_chat=chat_as_text,
+                font_path=options[4],
+                width=options[1],
+                height=options[0],
+                prefer_horizontal=options[13],
+                scale=options[10],
+                max_words=options[8],
+                min_font_size=options[5],
+                background_color=options[11],
+                max_font_size=options[7],
+                font_step=options[6],
+                mode=options[12],
+                relative_scaling=options[15],
+                repeat=options[2],
+                include_numbers=options[4],
+                min_word_length=options[9],
+                collocation_threshold=options[14],
             )
 
 

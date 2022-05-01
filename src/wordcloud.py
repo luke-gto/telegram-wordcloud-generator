@@ -1,15 +1,16 @@
-
 import json
-import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize
+import matplotlib.pyplot as plt
+
 import os.path
 from pathlib import Path
-from PIL import Image
 import sys
 from wordcloud import WordCloud
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5 import QtWidgets
+
 
 # from .image_processing import make_mask, black_and_white
-
 
 script_directory = os.path.dirname(os.path.realpath(__file__))
 file_save_directory = str(Path(__file__).resolve().parents[1])
@@ -27,10 +28,9 @@ def tokenize_chat(jdata, stopwords_path):
     for item in jdata["messages"]:
 
         if type(item["text"]) == list:
-            continue
+                continue
 
         message = item["text"] + "\n"
-
         messages.append(message)
 
     text = "".join(messages)
@@ -38,42 +38,74 @@ def tokenize_chat(jdata, stopwords_path):
     stopword_file = stopwords_path
 
     if os.path.exists(stopword_file):
+
         with open(stopword_file, "r") as stopword:
             stopword_list = stopword.read()
 
             tokenized_chat = [
-                i for i in word_tokenize(text.lower()) if i not in stopword_list
-            ]
-            return tokenized_chat
+            i for i in word_tokenize(text.lower()) if i not in stopword_list
+                ]
 
-    else:
+        msg = QMessageBox()
+        msg.setWindowTitle("Yeees!")
+        msg.setText("Choose where you want to save the file")
+        msg.setIcon(msg.Information)
+        msg.exec()
 
-        print("\n\nStopwords file not found, try again.")
-        sys.exit()
+        save_path = QtWidgets.QFileDialog.getExistingDirectory(
+            None, "Open Save Directory"
+        )
 
-
-# def save_img(wc):  # function to save img
-
-#     plt.figure(figsize=(20, 10))
-#     plt.imshow(wc, interpolation="bilinear")
-#     plt.axis("off")
-#     plt.tight_layout(pad=0)
-#     wordcloud_file_name = input(
-#         "\n\nEnter the filename of the generated wordcloud:\n\n"
-#     )
-#     plt.savefig(
-#         file_save_directory + "/{}.png".format(wordcloud_file_name), bbox_inches="tight"
-#     )
-#     print("\n\nWordCloud saved in {}".format(file_save_directory))
+        return tokenized_chat, save_path
 
 
-def standard_wordcloud(tokenized_chat):
+def save_img(wc, save_path):  # function to save img
 
-    wc = WordCloud().generate_from_text(
-        tokenized_chat
+    plt.figure(figsize=(20, 10))
+    plt.imshow(wc, interpolation="bilinear")
+    plt.axis("off")
+    plt.tight_layout(pad=0)
+    plt.savefig(
+        save_path + "/wordcloud.png", bbox_inches="tight"
     )
 
-    # save_img(wc)
+def standard_wordcloud(save_path, font_path,
+                width,
+                height,
+                prefer_horizontal,
+                scale,
+                max_words,
+                min_font_size,
+                background_color,
+                max_font_size,
+                font_step,
+                mode,
+                relative_scaling,
+                repeat,
+                include_numbers,
+                min_word_length,
+                collocation_threshold,tokenized_chat):
+
+    wc = WordCloud(
+                font_path=font_path,
+                width=width,
+                height=height,
+                prefer_horizontal=prefer_horizontal,
+                scale=scale,
+                max_words=max_words,
+                min_font_size=min_font_size,
+                background_color=background_color,
+                max_font_size=max_font_size,
+                font_step=font_step,
+                mode=mode,
+                relative_scaling=relative_scaling,
+                repeat=repeat,
+                include_numbers=include_numbers,
+                min_word_length=min_word_length,
+                collocation_threshold=collocation_threshold).generate_from_text(tokenized_chat)
+
+
+    save_img(wc, save_path)
 
 
 # def map_wordcloud(tokenized_chat):
