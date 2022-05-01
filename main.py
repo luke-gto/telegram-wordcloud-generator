@@ -24,6 +24,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.pushButton_font.clicked.connect(self.browse_file_font)
 
     def browse_file_font(self):
+
         global font_path
 
         font_path = QtWidgets.QFileDialog.getOpenFileName(
@@ -60,17 +61,32 @@ class Window(QMainWindow, Ui_MainWindow):
         width = self.spinBox_width.value()
         repeat_words = self.checkBox_repeat.isChecked()
         numbers = self.checkBox_num.isChecked()
-        if font_path[0] == None:
+        if "font_path" not in locals():
             font = None
         else:
             font = font_path[0]
         min_font_size = self.spinBox_min_font.value()
         font_step = self.spinBox_font_step.value()
-        max_font = self.spinBox_max_font.value()
-        max_words = self.spinBox_max_words.value()
+
+        if self.spinBox_max_font.value() == 0:
+            max_font = None
+        else:
+            max_font = self.spinBox_max_font.value()
+
+        if self.spinBox_max_words.value() == 0:
+            max_words = None
+        else:
+            max_words = self.spinBox_max_words.value()
+
         min_word_lenght = self.spinBox_min_word_length.value()
+
         scale = self.doubleSpinBox_scale.value()
-        background_color = self.lineEdit_back_color.text()
+
+        if self.lineEdit_back_color.text() == "":
+            background_color = None
+        else:
+            background_color = self.lineEdit_back_color.text()
+
         color_mode = self.lineEdit_color_mode.text()
         prefer_horizontal = self.doubleSpinBox_horizontal.value()
         collocation_threshold = self.spinBox_collocation.value()
@@ -86,11 +102,11 @@ class Window(QMainWindow, Ui_MainWindow):
             font,
             min_font_size,
             font_step,
-            max_font,
-            max_words,
-            min_word_lenght,
-            scale,
-            background_color,
+            max_font,  
+            max_words,  
+            min_word_lenght,  
+            scale,  
+            background_color,  
             color_mode,
             prefer_horizontal,
             collocation_threshold,
@@ -125,7 +141,8 @@ class Window(QMainWindow, Ui_MainWindow):
         if self.buttonGroup.checkedId() == -4:
             options = self.read_wordcloud_options()
             print(options)
-            wc.standard_wordcloud(save_path=save_path,
+            wc.standard_wordcloud(
+                save_path=save_path,
                 tokenized_chat=chat_as_text,
                 font_path=options[4],
                 width=options[1],
