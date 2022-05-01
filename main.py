@@ -109,7 +109,10 @@ class Window(QMainWindow, Ui_MainWindow):
 
         scale = self.doubleSpinBox_scale.value()
 
-        background_color = back_color_code
+        if "back_color_code" not in locals():
+            background_color = None
+        else:
+            background_color = back_color_code
 
         color_mode = self.lineEdit_color_mode.text()
         prefer_horizontal = self.doubleSpinBox_horizontal.value()
@@ -146,6 +149,8 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def chosen_option(self):
 
+        options = self.read_wordcloud_options()
+
         self.progressBar.show()
         self.pushButton_start.setCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
 
@@ -175,7 +180,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 return
 
         if self.buttonGroup.checkedId() == -4:
-            options = self.read_wordcloud_options()
+
             wc.standard_wordcloud(
                 save_path=save_path,
                 tokenized_chat=chat_as_text,
