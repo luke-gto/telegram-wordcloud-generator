@@ -1280,6 +1280,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_mask</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_width</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>582</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>31</x>
+     <y>319</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_mask</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_height</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>594</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>161</x>
+     <y>328</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <buttongroups>
   <buttongroup name="buttonGroup"/>

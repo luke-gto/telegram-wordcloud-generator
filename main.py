@@ -14,6 +14,7 @@ import src.image_processing as ip
 import os
 from pathlib import Path
 import sys
+from PIL import Image
 
 script_directory = os.path.dirname(os.path.realpath(__file__))
 file_save_directory = str(Path(__file__).resolve().parents[1])
@@ -36,6 +37,13 @@ class Window(QMainWindow, Ui_MainWindow):
         self.pushButton_cont_color.clicked.connect(self.cont_color_picker)
         self.pushButton_mask.clicked.connect(self.choose_mask)
 
+    def adapt_canvas_size(self, image_mask):
+        mask_img = Image.open(image_mask[0])
+        width = mask_img.size[0]
+        height = mask_img.size[1]
+        self.spinBox_width.setValue(width)
+        self.spinBox_height.setValue(height)
+
     def choose_mask(self):
         global mask_ready
         buttonReply = QMessageBox.question(
@@ -49,7 +57,9 @@ class Window(QMainWindow, Ui_MainWindow):
             png_ready_path = QtWidgets.QFileDialog.getOpenFileName(
                 self, "Open a PNG image", "", "*.png"
             )
-            mask_ready = ip.black_and_white(png_ready_path[0])
+            self.adapt_canvas_size(png_ready_path)
+
+            mask_ready = ip.make_mask(png_ready_path[0])
         else:
             buttonReply = QMessageBox.question(
                 self,
@@ -62,6 +72,8 @@ class Window(QMainWindow, Ui_MainWindow):
                 png_raw_path = QtWidgets.QFileDialog.getOpenFileName(
                     self, "Open a PNG image", "", "*.png"
                 )
+
+                self.adapt_canvas_size(png_raw_path)
                 mask_ready = ip.black_and_white(png_raw_path[0])
             else:
                 msg = QMessageBox()
@@ -149,20 +161,19 @@ class Window(QMainWindow, Ui_MainWindow):
         min_word_lenght = self.spinBox_min_word_length.value()
 
         scale = self.doubleSpinBox_scale.value()
-        
-        background_color = back_color_code ######
 
+        background_color = back_color_code  ######
 
-        mask = mask_ready ####
+        mask = mask_ready  ####
 
         color_mode = self.lineEdit_color_mode.text()
         prefer_horizontal = self.doubleSpinBox_horizontal.value()
         collocation_threshold = self.spinBox_collocation.value()
         relative_scaling = self.doubleSpinBox_relative_scale.value()
 
-        mask_contour_color = cont_color_code ####
+        mask_contour_color = cont_color_code  ####
 
-        contour_width = self.spinBox_contour.value() ####
+        contour_width = self.spinBox_contour.value()  ####
 
         return (
             height,
@@ -183,13 +194,13 @@ class Window(QMainWindow, Ui_MainWindow):
             relative_scaling,
             mask_contour_color,
             contour_width,
-            mask
+            mask,
         )
 
     def chosen_option(self):
 
         options = self.read_wordcloud_options()
-
+        print(options)
         self.progressBar.show()
         self.pushButton_start.setCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
 
@@ -237,10 +248,9 @@ class Window(QMainWindow, Ui_MainWindow):
                 include_numbers=options[4],
                 min_word_length=options[9],
                 collocation_threshold=options[14],
-                mask_contour_color = options[16],
-                contour_width = options[17],
-                mask = options[18]
-
+                mask_contour_color=options[16],
+                contour_width=options[17],
+                mask=options[18],
             )
             self.progressBar.hide()
             self.pushButton_start.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
@@ -266,9 +276,9 @@ class Window(QMainWindow, Ui_MainWindow):
                 include_numbers=options[4],
                 min_word_length=options[9],
                 collocation_threshold=options[14],
-                mask_contour_color = options[16],
-                contour_width = options[17],
-                mask = options[18]
+                mask_contour_color=options[16],
+                contour_width=options[17],
+                mask=options[18],
             )
             self.progressBar.hide()
             self.pushButton_start.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
@@ -281,6 +291,4 @@ if __name__ == "__main__":
     sys.exit(app.exec())
 
 
-
-### deal with missing input
-### deal with dimensions masks
+### deal with missing input in wordcloud functions

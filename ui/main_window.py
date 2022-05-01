@@ -369,6 +369,8 @@ class Ui_MainWindow(object):
         self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_collocation.setDisabled) # type: ignore
         self.pushButton_textonly_2.toggled['bool'].connect(self.doubleSpinBox_relative_scale.setDisabled) # type: ignore
         self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_contour.setDisabled) # type: ignore
+        self.pushButton_mask.toggled['bool'].connect(self.spinBox_width.setDisabled) # type: ignore
+        self.pushButton_mask.toggled['bool'].connect(self.spinBox_height.setDisabled) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
