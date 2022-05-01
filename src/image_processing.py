@@ -29,3 +29,4 @@ def black_and_white(
     bw_img = np.invert(bw_img_inverted)
 
     return bw_img
+

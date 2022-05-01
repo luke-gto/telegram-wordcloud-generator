@@ -26,6 +26,11 @@ class Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.buttons_listener()
         self.progressBar.hide()
+        self.back_color_code = None
+        self.cont_color_code = None
+        self.mask_ready = None
+        self.font_path = None
+
 
     def buttons_listener(self):
 
@@ -45,7 +50,6 @@ class Window(QMainWindow, Ui_MainWindow):
         self.spinBox_height.setValue(height)
 
     def choose_mask(self):
-        global mask_ready
         buttonReply = QMessageBox.question(
             self,
             "Mask image",
@@ -59,7 +63,7 @@ class Window(QMainWindow, Ui_MainWindow):
             )
             self.adapt_canvas_size(png_ready_path)
 
-            mask_ready = ip.make_mask(png_ready_path[0])
+            self.mask_ready = ip.make_mask(png_ready_path[0])
         else:
             buttonReply = QMessageBox.question(
                 self,
@@ -74,7 +78,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 )
 
                 self.adapt_canvas_size(png_raw_path)
-                mask_ready = ip.black_and_white(png_raw_path[0])
+                self.mask_ready = ip.black_and_white(png_raw_path[0])
             else:
                 msg = QMessageBox()
                 msg.setWindowTitle("Noooo")
@@ -85,31 +89,29 @@ class Window(QMainWindow, Ui_MainWindow):
                 msg.exec()
 
     def back_color_picker(self):
-        global back_color_code
+
 
         color = QColorDialog.getColor()
         if color.isValid():
-            back_color_code = color.name()
+            self.back_color_code = color.name()
             self.pushButton_back_color.setStyleSheet(
-                "background-color : {}".format(back_color_code)
+                "background-color : {}".format(self.back_color_code)
             )
 
     def cont_color_picker(self):
         color = QColorDialog.getColor()
         if color.isValid():
-            global cont_color_code
-            cont_color_code = color.name()
+            self.cont_color_code = color.name()
             self.pushButton_cont_color.setStyleSheet(
-                "background-color : {}".format(cont_color_code)
+                "background-color : {}".format(self.back_color_code)
             )
 
     def browse_file_font(self):
 
-        global font_path
 
-        font_path = QtWidgets.QFileDialog.getOpenFileName(
+        self.font_path = QtWidgets.QFileDialog.getOpenFileName(
             self, "Open File", "", "*.ttf, *otf"
-        )
+        )[0]
 
     def browse_file_stopwords(self):
 
@@ -141,10 +143,7 @@ class Window(QMainWindow, Ui_MainWindow):
         width = self.spinBox_width.value()
         repeat_words = self.checkBox_repeat.isChecked()
         numbers = self.checkBox_num.isChecked()
-        if "font_path" not in locals():
-            font = None
-        else:
-            font = font_path[0]
+        font = self.font_path
         min_font_size = self.spinBox_min_font.value()
         font_step = self.spinBox_font_step.value()
 
@@ -162,18 +161,18 @@ class Window(QMainWindow, Ui_MainWindow):
 
         scale = self.doubleSpinBox_scale.value()
 
-        background_color = back_color_code  ######
+        background_color = self.back_color_code
 
-        mask = mask_ready  ####
+        mask = self.mask_ready
 
         color_mode = self.lineEdit_color_mode.text()
         prefer_horizontal = self.doubleSpinBox_horizontal.value()
         collocation_threshold = self.spinBox_collocation.value()
         relative_scaling = self.doubleSpinBox_relative_scale.value()
 
-        mask_contour_color = cont_color_code  ####
+        mask_contour_color = self.cont_color_code
 
-        contour_width = self.spinBox_contour.value()  ####
+        contour_width = self.spinBox_contour.value()
 
         return (
             height,
@@ -291,4 +290,3 @@ if __name__ == "__main__":
     sys.exit(app.exec())
 
 
-### deal with missing input in wordcloud functions
