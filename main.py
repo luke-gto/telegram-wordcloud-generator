@@ -34,9 +34,10 @@ class Window(QMainWindow, Ui_MainWindow):
         self.pushButton_font.clicked.connect(self.browse_file_font)
         self.pushButton_back_color.clicked.connect(self.back_color_picker)
         self.pushButton_cont_color.clicked.connect(self.cont_color_picker)
-        self.pushButton_mask.pressed.connect(self.choose_mask)
+        self.pushButton_mask.clicked.connect(self.choose_mask)
 
     def choose_mask(self):
+        global mask_ready
         buttonReply = QMessageBox.question(
             self,
             "Mask image",
@@ -48,7 +49,7 @@ class Window(QMainWindow, Ui_MainWindow):
             png_ready_path = QtWidgets.QFileDialog.getOpenFileName(
                 self, "Open a PNG image", "", "*.png"
             )
-            mask_ready = ip.black_and_white(png_ready_path)
+            mask_ready = ip.black_and_white(png_ready_path[0])
         else:
             buttonReply = QMessageBox.question(
                 self,
@@ -61,7 +62,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 png_raw_path = QtWidgets.QFileDialog.getOpenFileName(
                     self, "Open a PNG image", "", "*.png"
                 )
-                mask_ready = ip.black_and_white(png_raw_path)
+                mask_ready = ip.black_and_white(png_raw_path[0])
             else:
                 msg = QMessageBox()
                 msg.setWindowTitle("Noooo")
@@ -72,9 +73,10 @@ class Window(QMainWindow, Ui_MainWindow):
                 msg.exec()
 
     def back_color_picker(self):
+        global back_color_code
+
         color = QColorDialog.getColor()
         if color.isValid():
-            global back_color_code
             back_color_code = color.name()
             self.pushButton_back_color.setStyleSheet(
                 "background-color : {}".format(back_color_code)
@@ -147,23 +149,20 @@ class Window(QMainWindow, Ui_MainWindow):
         min_word_lenght = self.spinBox_min_word_length.value()
 
         scale = self.doubleSpinBox_scale.value()
+        
+        background_color = back_color_code ######
 
-        if "back_color_code" not in locals():
-            background_color = None
-        else:
-            background_color = back_color_code
+
+        mask = mask_ready ####
 
         color_mode = self.lineEdit_color_mode.text()
         prefer_horizontal = self.doubleSpinBox_horizontal.value()
         collocation_threshold = self.spinBox_collocation.value()
         relative_scaling = self.doubleSpinBox_relative_scale.value()
 
-        if "cont_color_code" not in locals():
-            mask_contour_color = None
-        else:
-            mask_contour_color = cont_color_code
+        mask_contour_color = cont_color_code ####
 
-        contour_width = self.spinBox_contour.value()
+        contour_width = self.spinBox_contour.value() ####
 
         return (
             height,
@@ -184,10 +183,10 @@ class Window(QMainWindow, Ui_MainWindow):
             relative_scaling,
             mask_contour_color,
             contour_width,
+            mask
         )
 
     def chosen_option(self):
-        print(self.buttonGroup.checkedId())
 
         options = self.read_wordcloud_options()
 
@@ -219,8 +218,7 @@ class Window(QMainWindow, Ui_MainWindow):
                 return
 
         if self.buttonGroup.checkedId() == -4:
-
-            wc.standard_wordcloud(
+            wc.generate_wordcloud(
                 save_path=save_path,
                 tokenized_chat=chat_as_text,
                 font_path=options[4],
@@ -239,14 +237,41 @@ class Window(QMainWindow, Ui_MainWindow):
                 include_numbers=options[4],
                 min_word_length=options[9],
                 collocation_threshold=options[14],
+                mask_contour_color = options[16],
+                contour_width = options[17],
+                mask = options[18]
+
             )
             self.progressBar.hide()
             self.pushButton_start.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
         if self.buttonGroup.checkedId() == -3:
             options = self.read_wordcloud_options()
-
-            pass
+            wc.generate_wordcloud(
+                save_path=save_path,
+                tokenized_chat=chat_as_text,
+                font_path=options[4],
+                width=options[1],
+                height=options[0],
+                prefer_horizontal=options[13],
+                scale=options[10],
+                max_words=options[8],
+                min_font_size=options[5],
+                background_color=options[11],
+                max_font_size=options[7],
+                font_step=options[6],
+                mode=options[12],
+                relative_scaling=options[15],
+                repeat=options[2],
+                include_numbers=options[4],
+                min_word_length=options[9],
+                collocation_threshold=options[14],
+                mask_contour_color = options[16],
+                contour_width = options[17],
+                mask = options[18]
+            )
+            self.progressBar.hide()
+            self.pushButton_start.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
 
 if __name__ == "__main__":
@@ -254,3 +279,8 @@ if __name__ == "__main__":
     win = Window()
     win.show()
     sys.exit(app.exec())
+
+
+
+### deal with missing input
+### deal with dimensions masks

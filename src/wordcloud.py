@@ -71,7 +71,7 @@ def save_img(wc, save_path):  # function to save img
     msg.exec()
 
 
-def standard_wordcloud(
+def generate_wordcloud(
     save_path,
     font_path,
     width,
@@ -90,6 +90,10 @@ def standard_wordcloud(
     min_word_length,
     collocation_threshold,
     tokenized_chat,
+    mask_contour_color,
+    contour_width,
+    mask
+
 ):
 
     wc = WordCloud(
@@ -109,6 +113,9 @@ def standard_wordcloud(
         include_numbers=include_numbers,
         min_word_length=min_word_length,
         collocation_threshold=collocation_threshold,
+        contour_color=mask_contour_color,
+        contour_width=contour_width,
+        mask=mask
     ).generate_from_text(tokenized_chat)
 
     save_img(wc, save_path)
