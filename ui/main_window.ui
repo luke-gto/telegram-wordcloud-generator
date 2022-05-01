@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -165,7 +168,7 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>140</x>
       <y>270</y>
       <width>51</width>
       <height>16</height>
@@ -181,7 +184,7 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>30</x>
       <y>270</y>
       <width>51</width>
       <height>16</height>
@@ -197,7 +200,7 @@
    <widget class="QSpinBox" name="spinBox_height">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>120</x>
       <y>290</y>
       <width>91</width>
       <height>30</height>
@@ -314,22 +317,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_cont_color">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>580</y>
-      <width>113</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="statusTip">
-     <string>Mask contour color</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_scale">
     <property name="geometry">
      <rect>
@@ -347,6 +334,9 @@
     </property>
     <property name="singleStep">
      <double>0.250000000000000</double>
+    </property>
+    <property name="value">
+     <double>1.000000000000000</double>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -516,22 +506,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_back_color">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>460</y>
-      <width>121</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="statusTip">
-     <string>Background color for the word cloud image.</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
@@ -683,7 +657,7 @@
      </rect>
     </property>
     <property name="statusTip">
-     <string>Whether to repeat words and phrases until max words or min font size is reached.</string>
+     <string>Whether to include numbers in the word cloud</string>
     </property>
     <property name="text">
      <string/>
@@ -839,7 +813,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton_map">
+      <widget class="QPushButton" name="pushButton_textonly_2">
        <property name="text">
         <string>Text processing only</string>
        </property>
@@ -855,9 +829,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="pushButton_mask">
        <property name="text">
-        <string>Word cloud with map</string>
+        <string>Word cloud with mask</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -868,7 +842,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_textonly">
+      <widget class="QPushButton" name="pushButton_standard_wordcloud">
        <property name="text">
         <string>Standard word cloud</string>
        </property>
@@ -885,7 +859,7 @@
    <widget class="QSpinBox" name="spinBox_width">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>20</x>
       <y>290</y>
       <width>91</width>
       <height>30</height>
@@ -904,6 +878,109 @@
      <number>400</number>
     </property>
    </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>620</y>
+      <width>841</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>0</width>
+      <height>5</height>
+     </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>WaitCursor</cursorShape>
+    </property>
+    <property name="maximum">
+     <number>0</number>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="invertedAppearance">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_back_color">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>460</y>
+      <width>121</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Color picker</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_cont_color">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>580</y>
+      <width>121</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Color picker</string>
+    </property>
+   </widget>
+   <zorder>progressBar</zorder>
+   <zorder>pushButton_json</zorder>
+   <zorder>label_json</zorder>
+   <zorder>pushButton_stopwords</zorder>
+   <zorder>label_stopwords</zorder>
+   <zorder>label</zorder>
+   <zorder>pushButton_font</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_4</zorder>
+   <zorder>spinBox_height</zorder>
+   <zorder>label_5</zorder>
+   <zorder>doubleSpinBox_horizontal</zorder>
+   <zorder>spinBox_contour</zorder>
+   <zorder>label_6</zorder>
+   <zorder>label_7</zorder>
+   <zorder>doubleSpinBox_scale</zorder>
+   <zorder>label_8</zorder>
+   <zorder>label_10</zorder>
+   <zorder>spinBox_font_step</zorder>
+   <zorder>label_12</zorder>
+   <zorder>spinBox_min_font</zorder>
+   <zorder>label_11</zorder>
+   <zorder>spinBox_max_font</zorder>
+   <zorder>spinBox_max_words</zorder>
+   <zorder>label_13</zorder>
+   <zorder>label_9</zorder>
+   <zorder>label_14</zorder>
+   <zorder>lineEdit_color_mode</zorder>
+   <zorder>doubleSpinBox_relative_scale</zorder>
+   <zorder>label_15</zorder>
+   <zorder>label_16</zorder>
+   <zorder>checkBox_repeat</zorder>
+   <zorder>label_17</zorder>
+   <zorder>checkBox_num</zorder>
+   <zorder>label_18</zorder>
+   <zorder>spinBox_min_word_length</zorder>
+   <zorder>spinBox_collocation</zorder>
+   <zorder>label_19</zorder>
+   <zorder>label_20</zorder>
+   <zorder>label_21</zorder>
+   <zorder>pushButton_start</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>spinBox_width</zorder>
+   <zorder>pushButton_back_color</zorder>
+   <zorder>pushButton_cont_color</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -932,23 +1009,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_textonly</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lineEdit_cont_color</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>609</x>
-     <y>188</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>608</x>
-     <y>614</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_textonly</sender>
+   <sender>pushButton_standard_wordcloud</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_contour</receiver>
    <slot>setDisabled(bool)</slot>
@@ -964,7 +1025,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_height</receiver>
    <slot>setDisabled(bool)</slot>
@@ -974,13 +1035,13 @@
      <y>62</y>
     </hint>
     <hint type="destinationlabel">
-     <x>29</x>
-     <y>328</y>
+     <x>120</x>
+     <y>347</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_width</receiver>
    <slot>setDisabled(bool)</slot>
@@ -990,13 +1051,13 @@
      <y>76</y>
     </hint>
     <hint type="destinationlabel">
-     <x>165</x>
-     <y>326</y>
+     <x>110</x>
+     <y>347</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>checkBox_repeat</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1012,7 +1073,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>checkBox_num</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1028,7 +1089,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>pushButton_font</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1044,7 +1105,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_min_font</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1060,7 +1121,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_font_step</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1076,7 +1137,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_max_font</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1092,7 +1153,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_max_words</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1108,7 +1169,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_min_word_length</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1124,7 +1185,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>doubleSpinBox_scale</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1140,23 +1201,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lineEdit_back_color</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>713</x>
-     <y>73</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>321</x>
-     <y>489</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>lineEdit_color_mode</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1172,7 +1217,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>doubleSpinBox_horizontal</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1188,7 +1233,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_collocation</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1204,7 +1249,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>doubleSpinBox_relative_scale</receiver>
    <slot>setDisabled(bool)</slot>
@@ -1220,23 +1265,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_map</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lineEdit_cont_color</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>773</x>
-     <y>71</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>556</x>
-     <y>614</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_map</sender>
+   <sender>pushButton_textonly_2</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinBox_contour</receiver>
    <slot>setDisabled(bool)</slot>

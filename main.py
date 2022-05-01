@@ -10,9 +10,9 @@ from PyQt5.QtWidgets import (
     QColorDialog,
 )
 import src.wordcloud as wc
+import src.image_processing as ip
 import os
 from pathlib import Path
-import threading
 import sys
 
 script_directory = os.path.dirname(os.path.realpath(__file__))
@@ -34,21 +34,60 @@ class Window(QMainWindow, Ui_MainWindow):
         self.pushButton_font.clicked.connect(self.browse_file_font)
         self.pushButton_back_color.clicked.connect(self.back_color_picker)
         self.pushButton_cont_color.clicked.connect(self.cont_color_picker)
+        self.pushButton_mask.pressed.connect(self.choose_mask)
+
+    def choose_mask(self):
+        buttonReply = QMessageBox.question(
+            self,
+            "Mask image",
+            'Do you a b/w PNG file <a href="https://github.com/luke-gto/telegram-wordcloud-generator#tips">ready to be used as a mask</a> for your word cloud?',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No,
+        )
+        if buttonReply == QMessageBox.Yes:
+            png_ready_path = QtWidgets.QFileDialog.getOpenFileName(
+                self, "Open a PNG image", "", "*.png"
+            )
+            mask_ready = ip.black_and_white(png_ready_path)
+        else:
+            buttonReply = QMessageBox.question(
+                self,
+                "Mask image",
+                "Ok, do you have a PNG image you want me to try to convert to a mask?",
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.No,
+            )
+            if buttonReply == QMessageBox.Yes:
+                png_raw_path = QtWidgets.QFileDialog.getOpenFileName(
+                    self, "Open a PNG image", "", "*.png"
+                )
+                mask_ready = ip.black_and_white(png_raw_path)
+            else:
+                msg = QMessageBox()
+                msg.setWindowTitle("Noooo")
+                msg.setText(
+                    "Okay, you can still make a standard rectangular boring word cloud. Select the appropriate option on the top right of the main window"
+                )
+                msg.setIcon(msg.Information)
+                msg.exec()
 
     def back_color_picker(self):
         color = QColorDialog.getColor()
         if color.isValid():
             global back_color_code
             back_color_code = color.name()
-            self.pushButton_back_color.setStyleSheet("background-color : {}".format(back_color_code))
+            self.pushButton_back_color.setStyleSheet(
+                "background-color : {}".format(back_color_code)
+            )
 
     def cont_color_picker(self):
         color = QColorDialog.getColor()
         if color.isValid():
             global cont_color_code
             cont_color_code = color.name()
-            self.pushButton_cont_color.setStyleSheet("background-color : {}".format(cont_color_code))
-
+            self.pushButton_cont_color.setStyleSheet(
+                "background-color : {}".format(cont_color_code)
+            )
 
     def browse_file_font(self):
 
@@ -148,6 +187,7 @@ class Window(QMainWindow, Ui_MainWindow):
         )
 
     def chosen_option(self):
+        print(self.buttonGroup.checkedId())
 
         options = self.read_wordcloud_options()
 
@@ -160,7 +200,6 @@ class Window(QMainWindow, Ui_MainWindow):
 
         chat_as_text = " ".join(tokenized_chat_output[0])
         save_path = tokenized_chat_output[1]
-
         if self.buttonGroup.checkedId() == -2:  ### text only no wordcloud
 
             with open(save_path + "/telegram_chat.txt", "w") as f:

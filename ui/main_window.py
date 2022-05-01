@@ -14,6 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        MainWindow.setEnabled(True)
         MainWindow.resize(859, 772)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -64,15 +65,15 @@ class Ui_MainWindow(object):
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(40, 270, 51, 16))
+        self.label_3.setGeometry(QtCore.QRect(140, 270, 51, 16))
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(130, 270, 51, 16))
+        self.label_4.setGeometry(QtCore.QRect(30, 270, 51, 16))
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.label_4.setObjectName("label_4")
         self.spinBox_height = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_height.setGeometry(QtCore.QRect(20, 290, 91, 30))
+        self.spinBox_height.setGeometry(QtCore.QRect(120, 290, 91, 30))
         self.spinBox_height.setMaximum(10000)
         self.spinBox_height.setSingleStep(100)
         self.spinBox_height.setProperty("value", 200)
@@ -105,13 +106,10 @@ class Ui_MainWindow(object):
         self.label_7.setFont(font)
         self.label_7.setAlignment(QtCore.Qt.AlignCenter)
         self.label_7.setObjectName("label_7")
-        self.lineEdit_cont_color = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_cont_color.setGeometry(QtCore.QRect(540, 580, 113, 30))
-        self.lineEdit_cont_color.setText("")
-        self.lineEdit_cont_color.setObjectName("lineEdit_cont_color")
         self.doubleSpinBox_scale = QtWidgets.QDoubleSpinBox(self.centralwidget)
         self.doubleSpinBox_scale.setGeometry(QtCore.QRect(160, 460, 70, 30))
         self.doubleSpinBox_scale.setSingleStep(0.25)
+        self.doubleSpinBox_scale.setProperty("value", 1.0)
         self.doubleSpinBox_scale.setObjectName("doubleSpinBox_scale")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
         self.label_8.setGeometry(QtCore.QRect(120, 430, 151, 16))
@@ -158,10 +156,6 @@ class Ui_MainWindow(object):
         self.label_9.setFont(font)
         self.label_9.setAlignment(QtCore.Qt.AlignCenter)
         self.label_9.setObjectName("label_9")
-        self.lineEdit_back_color = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_back_color.setGeometry(QtCore.QRect(260, 460, 121, 30))
-        self.lineEdit_back_color.setText("")
-        self.lineEdit_back_color.setObjectName("lineEdit_back_color")
         self.label_14 = QtWidgets.QLabel(self.centralwidget)
         self.label_14.setGeometry(QtCore.QRect(440, 430, 121, 20))
         font = QtGui.QFont()
@@ -257,30 +251,91 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.pushButton_map = QtWidgets.QPushButton(self.layoutWidget)
-        self.pushButton_map.setCheckable(True)
-        self.pushButton_map.setAutoExclusive(False)
-        self.pushButton_map.setObjectName("pushButton_map")
+        self.pushButton_textonly_2 = QtWidgets.QPushButton(self.layoutWidget)
+        self.pushButton_textonly_2.setCheckable(True)
+        self.pushButton_textonly_2.setAutoExclusive(False)
+        self.pushButton_textonly_2.setObjectName("pushButton_textonly_2")
         self.buttonGroup = QtWidgets.QButtonGroup(MainWindow)
         self.buttonGroup.setObjectName("buttonGroup")
-        self.buttonGroup.addButton(self.pushButton_map)
-        self.verticalLayout.addWidget(self.pushButton_map)
-        self.pushButton_2 = QtWidgets.QPushButton(self.layoutWidget)
-        self.pushButton_2.setCheckable(True)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.buttonGroup.addButton(self.pushButton_2)
-        self.verticalLayout.addWidget(self.pushButton_2)
-        self.pushButton_textonly = QtWidgets.QPushButton(self.layoutWidget)
-        self.pushButton_textonly.setCheckable(True)
-        self.pushButton_textonly.setObjectName("pushButton_textonly")
-        self.buttonGroup.addButton(self.pushButton_textonly)
-        self.verticalLayout.addWidget(self.pushButton_textonly)
+        self.buttonGroup.addButton(self.pushButton_textonly_2)
+        self.verticalLayout.addWidget(self.pushButton_textonly_2)
+        self.pushButton_mask = QtWidgets.QPushButton(self.layoutWidget)
+        self.pushButton_mask.setCheckable(True)
+        self.pushButton_mask.setObjectName("pushButton_mask")
+        self.buttonGroup.addButton(self.pushButton_mask)
+        self.verticalLayout.addWidget(self.pushButton_mask)
+        self.pushButton_standard_wordcloud = QtWidgets.QPushButton(self.layoutWidget)
+        self.pushButton_standard_wordcloud.setCheckable(True)
+        self.pushButton_standard_wordcloud.setObjectName("pushButton_standard_wordcloud")
+        self.buttonGroup.addButton(self.pushButton_standard_wordcloud)
+        self.verticalLayout.addWidget(self.pushButton_standard_wordcloud)
         self.spinBox_width = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_width.setGeometry(QtCore.QRect(120, 290, 91, 30))
+        self.spinBox_width.setGeometry(QtCore.QRect(20, 290, 91, 30))
         self.spinBox_width.setMaximum(10000)
         self.spinBox_width.setSingleStep(100)
         self.spinBox_width.setProperty("value", 400)
         self.spinBox_width.setObjectName("spinBox_width")
+        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar.setEnabled(True)
+        self.progressBar.setGeometry(QtCore.QRect(10, 620, 841, 23))
+        self.progressBar.setBaseSize(QtCore.QSize(0, 5))
+        self.progressBar.setCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
+        self.progressBar.setMaximum(0)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setInvertedAppearance(False)
+        self.progressBar.setObjectName("progressBar")
+        self.pushButton_back_color = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_back_color.setGeometry(QtCore.QRect(260, 460, 121, 32))
+        self.pushButton_back_color.setObjectName("pushButton_back_color")
+        self.pushButton_cont_color = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_cont_color.setGeometry(QtCore.QRect(540, 580, 121, 32))
+        self.pushButton_cont_color.setObjectName("pushButton_cont_color")
+        self.progressBar.raise_()
+        self.pushButton_json.raise_()
+        self.label_json.raise_()
+        self.pushButton_stopwords.raise_()
+        self.label_stopwords.raise_()
+        self.label.raise_()
+        self.pushButton_font.raise_()
+        self.label_2.raise_()
+        self.label_3.raise_()
+        self.label_4.raise_()
+        self.spinBox_height.raise_()
+        self.label_5.raise_()
+        self.doubleSpinBox_horizontal.raise_()
+        self.spinBox_contour.raise_()
+        self.label_6.raise_()
+        self.label_7.raise_()
+        self.doubleSpinBox_scale.raise_()
+        self.label_8.raise_()
+        self.label_10.raise_()
+        self.spinBox_font_step.raise_()
+        self.label_12.raise_()
+        self.spinBox_min_font.raise_()
+        self.label_11.raise_()
+        self.spinBox_max_font.raise_()
+        self.spinBox_max_words.raise_()
+        self.label_13.raise_()
+        self.label_9.raise_()
+        self.label_14.raise_()
+        self.lineEdit_color_mode.raise_()
+        self.doubleSpinBox_relative_scale.raise_()
+        self.label_15.raise_()
+        self.label_16.raise_()
+        self.checkBox_repeat.raise_()
+        self.label_17.raise_()
+        self.checkBox_num.raise_()
+        self.label_18.raise_()
+        self.spinBox_min_word_length.raise_()
+        self.spinBox_collocation.raise_()
+        self.label_19.raise_()
+        self.label_20.raise_()
+        self.label_21.raise_()
+        self.pushButton_start.raise_()
+        self.layoutWidget.raise_()
+        self.spinBox_width.raise_()
+        self.pushButton_back_color.raise_()
+        self.pushButton_cont_color.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 859, 28))
@@ -297,26 +352,23 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuExit.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.pushButton_textonly.toggled['bool'].connect(self.lineEdit_cont_color.setDisabled) # type: ignore
-        self.pushButton_textonly.toggled['bool'].connect(self.spinBox_contour.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.spinBox_height.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.spinBox_width.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.checkBox_repeat.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.checkBox_num.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.pushButton_font.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.spinBox_min_font.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.spinBox_font_step.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.spinBox_max_font.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.spinBox_max_words.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.spinBox_min_word_length.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.doubleSpinBox_scale.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.lineEdit_back_color.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.lineEdit_color_mode.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.doubleSpinBox_horizontal.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.spinBox_collocation.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.doubleSpinBox_relative_scale.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.lineEdit_cont_color.setDisabled) # type: ignore
-        self.pushButton_map.toggled['bool'].connect(self.spinBox_contour.setDisabled) # type: ignore
+        self.pushButton_standard_wordcloud.toggled['bool'].connect(self.spinBox_contour.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_height.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_width.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.checkBox_repeat.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.checkBox_num.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.pushButton_font.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_min_font.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_font_step.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_max_font.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_max_words.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_min_word_length.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.doubleSpinBox_scale.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.lineEdit_color_mode.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.doubleSpinBox_horizontal.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_collocation.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.doubleSpinBox_relative_scale.setDisabled) # type: ignore
+        self.pushButton_textonly_2.toggled['bool'].connect(self.spinBox_contour.setDisabled) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -338,7 +390,6 @@ class Ui_MainWindow(object):
         self.spinBox_contour.setStatusTip(_translate("MainWindow", "The ratio of times to try horizontal fitting as opposed to vertical."))
         self.label_6.setText(_translate("MainWindow", "Contour width"))
         self.label_7.setText(_translate("MainWindow", "Mask contour color"))
-        self.lineEdit_cont_color.setStatusTip(_translate("MainWindow", "Mask contour color"))
         self.doubleSpinBox_scale.setToolTip(_translate("MainWindow", "The ratio of times to try horizontal fitting as opposed to vertical."))
         self.doubleSpinBox_scale.setStatusTip(_translate("MainWindow", "Scaling between computation and drawing."))
         self.label_8.setText(_translate("MainWindow", "Scale"))
@@ -351,7 +402,6 @@ class Ui_MainWindow(object):
         self.spinBox_max_words.setStatusTip(_translate("MainWindow", "The maximum number of words"))
         self.label_13.setText(_translate("MainWindow", "Max words number"))
         self.label_9.setText(_translate("MainWindow", "Background color"))
-        self.lineEdit_back_color.setStatusTip(_translate("MainWindow", "Background color for the word cloud image."))
         self.label_14.setStatusTip(_translate("MainWindow", "Transparent background will be generated when mode is \"RGBA\" and background_color is None."))
         self.label_14.setText(_translate("MainWindow", "Color mode"))
         self.lineEdit_color_mode.setStatusTip(_translate("MainWindow", "Transparent background will be generated when mode is \"RGBA\" and background_color is None."))
@@ -362,7 +412,7 @@ class Ui_MainWindow(object):
         self.label_16.setText(_translate("MainWindow", "Repeat words"))
         self.checkBox_repeat.setStatusTip(_translate("MainWindow", "Whether to repeat words and phrases until max words or min font size is reached."))
         self.label_17.setText(_translate("MainWindow", "Include numbers"))
-        self.checkBox_num.setStatusTip(_translate("MainWindow", "Whether to repeat words and phrases until max words or min font size is reached."))
+        self.checkBox_num.setStatusTip(_translate("MainWindow", "Whether to include numbers in the word cloud"))
         self.label_18.setText(_translate("MainWindow", "Min word length"))
         self.spinBox_min_word_length.setStatusTip(_translate("MainWindow", "Minimum number of letters a word must have to be included."))
         self.spinBox_collocation.setStatusTip(_translate("MainWindow", "Bigrams must have a Dunning likelihood collocation score greater than this parameter to be counted as bigrams."))
@@ -370,10 +420,12 @@ class Ui_MainWindow(object):
         self.label_20.setText(_translate("MainWindow", "Read the docs before messing with this stuff"))
         self.label_21.setText(_translate("MainWindow", "Only for word clouds with masks:"))
         self.pushButton_start.setText(_translate("MainWindow", "START"))
-        self.pushButton_map.setText(_translate("MainWindow", "Text processing only"))
-        self.pushButton_2.setText(_translate("MainWindow", "Word cloud with map"))
-        self.pushButton_textonly.setText(_translate("MainWindow", "Standard word cloud"))
+        self.pushButton_textonly_2.setText(_translate("MainWindow", "Text processing only"))
+        self.pushButton_mask.setText(_translate("MainWindow", "Word cloud with mask"))
+        self.pushButton_standard_wordcloud.setText(_translate("MainWindow", "Standard word cloud"))
         self.spinBox_width.setSuffix(_translate("MainWindow", "px"))
+        self.pushButton_back_color.setText(_translate("MainWindow", "Color picker"))
+        self.pushButton_cont_color.setText(_translate("MainWindow", "Color picker"))
         self.menuGuide.setTitle(_translate("MainWindow", "Guide"))
         self.menuExit.setTitle(_translate("MainWindow", "Exit"))
 
