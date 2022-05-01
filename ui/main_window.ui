@@ -34,6 +34,12 @@
   <property name="windowTitle">
    <string>Telegram chat word cloud generator</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.ico</normaloff>
+    <normalon>icon.ico</normalon>
+    <selectedon>icon.ico</selectedon>icon.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton_json">
     <property name="geometry">
@@ -110,7 +116,7 @@
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>Wordcloud options</string>
+     <string>Word cloud options</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

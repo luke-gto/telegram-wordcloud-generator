@@ -42,4 +42,4 @@ You can select the option to use a non b/w PNG and the script will try to make a
 
 I suggest you to use a Python virtual environment ^[1](https://docs.python.org/3/library/venv.html)  ^[2](https://realpython.com/python-virtual-environments-a-primer/)  to not mess around with the Python installation that's part of your OS.
 
- 
+ <a href="https://www.flaticon.com/free-icons/message" title="message icons">Message icons created by apien - Flaticon</a>

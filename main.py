@@ -6,8 +6,6 @@ from PyQt5.QtWidgets import (
     QMessageBox,
     QColorDialog,
 )
-import os
-from pathlib import Path
 import sys
 from PIL import Image
 import webbrowser
@@ -36,7 +34,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.pushButton_back_color.clicked.connect(self.back_color_picker)
         self.pushButton_cont_color.clicked.connect(self.cont_color_picker)
         self.pushButton_mask.clicked.connect(self.choose_mask)
-        # self.actionExit.triggered.connect(self.exit_app)
+        # self.menuExit.triggered.connect(self.exit_app)
         # self.actionGuide.triggered.connect(self.open_guide)
 
     def exit_app(self):
