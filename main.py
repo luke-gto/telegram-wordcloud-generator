@@ -2,22 +2,18 @@ from ui.main_window import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import (
     QApplication,
-    QDialog,
     QMainWindow,
     QMessageBox,
-    QProgressDialog,
-    QProgressBar,
     QColorDialog,
 )
-import src.wordcloud as wc
-import src.image_processing as ip
 import os
 from pathlib import Path
 import sys
 from PIL import Image
+import webbrowser
 
-script_directory = os.path.dirname(os.path.realpath(__file__))
-file_save_directory = str(Path(__file__).resolve().parents[1])
+import src.wordcloud as wc
+import src.image_processing as ip
 
 
 class Window(QMainWindow, Ui_MainWindow):
@@ -31,7 +27,6 @@ class Window(QMainWindow, Ui_MainWindow):
         self.mask_ready = None
         self.font_path = None
 
-
     def buttons_listener(self):
 
         self.pushButton_start.clicked.connect(self.chosen_option)
@@ -41,6 +36,16 @@ class Window(QMainWindow, Ui_MainWindow):
         self.pushButton_back_color.clicked.connect(self.back_color_picker)
         self.pushButton_cont_color.clicked.connect(self.cont_color_picker)
         self.pushButton_mask.clicked.connect(self.choose_mask)
+        # self.actionExit.triggered.connect(self.exit_app)
+        # self.actionGuide.triggered.connect(self.open_guide)
+
+    def exit_app(self):
+        sys.exit()
+
+    def open_guide(self):
+        webbrowser.open(
+            "https://github.com/luke-gto/telegram-wordcloud-generator/blob/main/README.md"
+        )
 
     def adapt_canvas_size(self, image_mask):
         mask_img = Image.open(image_mask[0])
@@ -90,7 +95,6 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def back_color_picker(self):
 
-
         color = QColorDialog.getColor()
         if color.isValid():
             self.back_color_code = color.name()
@@ -107,7 +111,6 @@ class Window(QMainWindow, Ui_MainWindow):
             )
 
     def browse_file_font(self):
-
 
         self.font_path = QtWidgets.QFileDialog.getOpenFileName(
             self, "Open File", "", "*.ttf, *otf"
@@ -288,5 +291,3 @@ if __name__ == "__main__":
     win = Window()
     win.show()
     sys.exit(app.exec())
-
-
