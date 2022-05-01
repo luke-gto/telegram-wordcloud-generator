@@ -2,7 +2,20 @@ import sys
 
 from cx_Freeze import Executable, setup
 
-executables = [Executable("main.py", base="Console", target_name="Telegram_chat_word_cloud_generator.exe", shortcutName="Telegram word cloud", shortcutDir="ProgramMenuFolder")]
+try:
+    from cx_Freeze.hooks import get_qt_plugins_paths
+except ImportError:
+    include_files = []
+else:
+    include_files = get_qt_plugins_paths("PyQt5", "platforms")
+
+build_exe_options = {
+    "excludes": ["tkinter"],
+    "include_files": include_files,
+}
+
+
+executables = [Executable("main.py", base="Win32GUI", icon="ui/icon.ico", target_name="Telegram_chat_word_cloud_generator.exe", shortcutName="Telegram word cloud", shortcutDir="ProgramMenuFolder")]
 
 setup(
     name="Telegram chat word cloud generator",
