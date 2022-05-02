@@ -11,7 +11,7 @@ You can use this tool to create a [word cloud](https://bfy.tw/SigJ)  of your Tel
 
 4. You need a [stopwords](https://en.wikipedia.org/wiki/Stop_word) list for your language in order to clean the chat from useless words. You can find [here](https://github.com/stopwords-iso/) a collection of stopwords lists for multiple languages. Download the one you need.
 
-5. ~~If you use Windows, you can download the [installation binary](https://github.com/luke-gto/telegram-wordcloud-generator/releases). Install the program on your PC and launch it~~ I'll provide binaries sooner or later.
+5. If you use Windows, you can download the [installation binary](https://github.com/luke-gto/telegram-wordcloud-generator/releases). Install the program on your PC and launch it.
 
 If you use another OS or you want to run from source code:
 
